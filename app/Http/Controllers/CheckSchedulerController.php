@@ -50,6 +50,9 @@ class CheckSchedulerController extends Controller
                     if($mail->Send()){
                         echo "Reminder Mail Send Sucessfully";
                     }
+                    else {
+                        echo $mail->ErrorInfo;
+                    }
                 //  end mail
             }
         }
