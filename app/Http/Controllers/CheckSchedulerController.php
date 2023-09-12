@@ -25,7 +25,8 @@ class CheckSchedulerController extends Controller
         foreach ($data as $key1 => $value1) {
 
             // Start need update for testing
-                $value1->update(['time' => date("H:i:s")]);
+                // $value1->update(['time' => date("H:i:s")]);
+                $value1->update(['day' => 'Run']);
                 // dd($value1);
             // End need update for testing
 
