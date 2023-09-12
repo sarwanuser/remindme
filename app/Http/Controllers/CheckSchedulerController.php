@@ -26,7 +26,7 @@ class CheckSchedulerController extends Controller
 
             // Start need update for testing
                 // $value1->update(['time' => date("H:i:s")]);
-                $value1->update(['day' => 'Run']);
+                $value->update(['day' => 'Run']);
                 // dd($value1);
             // End need update for testing
             if (date('H:i', strtotime($value->time)) == date("H:i")) {
