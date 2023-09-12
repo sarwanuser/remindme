@@ -22,14 +22,14 @@ class CheckSchedulerController extends Controller
                     ->get();
         
         //  Convert into index array  
-        foreach ($data as $key1 => $value1) {
+        foreach ($data as $key => $value) {
 
             // Start need update for testing
                 // $value1->update(['time' => date("H:i:s")]);
                 $value1->update(['day' => 'Run']);
                 // dd($value1);
             // End need update for testing
-            if (date('H:i', strtotime($value1->time)) == date("H:i")) {
+            if (date('H:i', strtotime($value->time)) == date("H:i")) {
                 //  start mail
                     $mail             = new PHPMailer();                // create a n
                     $mail->SMTPDebug  = 0;                                       
@@ -42,8 +42,8 @@ class CheckSchedulerController extends Controller
                     $mail->Password   = 'bjylkizlpfmeujtn';                        
                     $mail->IsHTML(true);
                     $mail->SetFrom('info@rstechnosoft.com', 'RS TECHNO SOFT');
-                    $mail->Subject = "Your Reminder";
-                    $mail->Body    =  "Your Reminder details are";
+                    $mail->Subject = $value->title;
+                    $mail->Body    =  $value->description;
                     $mail->AddAddress('485ashishkumar@gmail.com', 'Ashish Kumar');
                     // $mail->AddAddress('sarwandeveloper@gmail.com', 'Sarwan Verma');
                     // dd($mail);

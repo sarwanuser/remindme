@@ -61,7 +61,7 @@
                                         <div class="row">
                                             <label class="col-sm-3 col-form-label">Reminder Type</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="remind_type" id="">
+                                                <select class="form-control" name="remind_type" onchange="checkForInput(this.value);">
                                                     @foreach ($remind_type as $remind_types)
                                                         <option value="{{$remind_types->id}}">{{$remind_types->remind_type}}</option>
                                                     @endforeach
@@ -129,56 +129,60 @@
 	
     <script>    
         jQuery(document).ready(function(){
-        // alert('sds');
-        jQuery.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            function checkForInput(val){
+                alert(val);
             }
-        });
-        jQuery('#myForm').on('submit', function(e){
-            e.preventDefault();
-            var btn  = jQuery('#submit_btn');
-            var msg  = jQuery('#alertMSG');
-            var form = new FormData(this);
-            let files = jQuery('#profile_photo');
-            form.append('files', files);
-            var url = '/store';
-            jQuery.ajax({
-            type: 'POST',
-            url: url,
-            data: form,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            beforeSend:function(){
-                msg.html('&nbsp;');
-                btn.html("<i class='fa fa-circle-o-notch fa-spin'></i> Seting Reminder");
-            },
-            success: function(data) {
-                if (data.status=='1') {
-                // Ajax call completed successfully
-                // alert(data.msg);
-                msg.html(data.msg).css('color', 'green');
-                jQuery('#myForm').trigger('reset');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-                setTimeout(() => {
-                    jQuery(msg).html('&nbsp;');
-                },3500);
-                } else {
-                // alert(data.msg);
-                msg.html(data.msg).css('color', 'red');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            
+            // alert('sds');
+            jQuery.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
-            },
-            error: function(data) {
-                // Some error in ajax call
-                // alert("some Error");
-                msg.html("some Error").css('color', 'red');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-            }
-            });  
-        });
+            });
+            jQuery('#myForm').on('submit', function(e){
+                e.preventDefault();
+                var btn  = jQuery('#submit_btn');
+                var msg  = jQuery('#alertMSG');
+                var form = new FormData(this);
+                let files = jQuery('#profile_photo');
+                form.append('files', files);
+                var url = '/store';
+                jQuery.ajax({
+                type: 'POST',
+                url: url,
+                data: form,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend:function(){
+                    msg.html('&nbsp;');
+                    btn.html("<i class='fa fa-circle-o-notch fa-spin'></i> Seting Reminder");
+                },
+                success: function(data) {
+                    if (data.status=='1') {
+                    // Ajax call completed successfully
+                    // alert(data.msg);
+                    msg.html(data.msg).css('color', 'green');
+                    jQuery('#myForm').trigger('reset');
+                    btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                    setTimeout(() => {
+                        jQuery(msg).html('&nbsp;');
+                    },3500);
+                    } else {
+                    // alert(data.msg);
+                    msg.html(data.msg).css('color', 'red');
+                    btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                    }
+                },
+                error: function(data) {
+                    // Some error in ajax call
+                    // alert("some Error");
+                    msg.html("some Error").css('color', 'red');
+                    btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+                }
+                });  
+            });
         });
     </script>
     
