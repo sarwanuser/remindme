@@ -20,3 +20,5 @@ Mode
     update
 
 Laravel Cron Job Scheduling
+
+    

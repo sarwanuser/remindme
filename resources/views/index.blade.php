@@ -66,7 +66,7 @@
                             <td>{{date('d-m-Y', strtotime($datas->date))}}</td>
                             <td>{{date('H:i A', strtotime($datas->time))}}</td>
                             <td>
-                              @if($datas->status=='Y')
+                              @if($datas->active_status=='Y')
                                 <span style="color:#0d6efd;">Active</span>
                               @else
                                 <span style="color:red;">Inactive</span></b>

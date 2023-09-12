@@ -20,3 +20,5 @@ Route::post('/store', 'RemindController@store');
 
 Route::get('/text-cron-tab', 'CronTabController@index');
 Route::get('/cron-tab', 'CronTabController@create');
+
+Route::get('/check-one-time', 'CheckSchedulerController@checkOneTime');
