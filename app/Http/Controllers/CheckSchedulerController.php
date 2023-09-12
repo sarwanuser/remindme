@@ -29,8 +29,7 @@ class CheckSchedulerController extends Controller
                 $value1->update(['day' => 'Run']);
                 // dd($value1);
             // End need update for testing
-
-            if ($value1->time == date("H:i:s")) {
+            if (date('H:i', strtotime($value1->time)) == date("H:i")) {
                 //  start mail
                     $mail             = new PHPMailer();                // create a n
                     $mail->SMTPDebug  = 0;                                       
