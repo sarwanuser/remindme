@@ -1,0 +1,22 @@
+Project Name - Remind Me
+
+Reminder Field
+    title
+    description optional
+    Reminder Type
+    date 
+    time
+
+Reminder Type
+    daily     -> only time
+    one time  -> date time both
+    weekly    -> day Name (time optional)
+    monthly   -> fix one date like 7
+    yearly    -> month & day (time optional)
+
+Mode
+    listing
+    create
+    update
+
+Laravel Cron Job Scheduling
