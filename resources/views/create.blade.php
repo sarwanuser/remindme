@@ -61,7 +61,7 @@
                                         <div class="row">
                                             <label class="col-sm-3 col-form-label">Reminder Type</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="remind_type" onchange="checkForInput(this.value);">
+                                                <select class="form-control" name="remind_type" onchange="checkForInput(jQuery(this).val());">
                                                     @foreach ($remind_type as $remind_types)
                                                         <option value="{{$remind_types->id}}">{{$remind_types->remind_type}}</option>
                                                     @endforeach
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="day_div" style="display:none;">
                                         <div class="row  form-group">
                                             <label class="col-sm-3 col-form-label">Day</label>
                                             <div class="col-sm-9">
@@ -86,24 +86,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="from_date_div" style="display:none;">
                                         <div class="row  form-group">
-                                            <label class="col-sm-3 col-form-label">Time</label>
+                                            <label class="col-sm-3 col-form-label">From Date</label>
                                             <div class="col-sm-9">
-                                                <input type="time" class="form-control" name="time" id="" value="{{date('00:00')}}">
+                                                <input type="date" class="form-control" name="from_date" id="from_date" onchange="timeValidation(jQuery(this).val())" id="" value="{{date('Y-m-d')}}" required>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="to_date_div" style="display:none;">
+                                        <div class="row  form-group">
+                                            <label class="col-sm-3 col-form-label">To Day</label>
+                                            <div class="col-sm-9">
+                                                <input type="date" class="form-control" name="to_date" id="to_date" value="{{date('Y-m-d')}}" min="{{date('Y-m-d')}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6" id="time_div">
+                                        <div class="row  form-group">
+                                            <label class="col-sm-3 col-form-label">Time</label>
+                                            <div class="col-sm-9">
+                                                <input type="time" class="form-control" name="time" id="" value="{{date('00:00')}}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" id="date_div" style="display:none;">
                                         <div class="row  form-group">
                                             <label class="col-sm-3 col-form-label">Date</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control" name="date" id="" value="{{date('Y-m-d')}}">
+                                                <input type="date" class="form-control" name="date" id="" value="{{date('Y-m-d')}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -129,11 +145,8 @@
 	
     <script>    
         jQuery(document).ready(function(){
-            function checkForInput(val){
-                alert(val);
-            }
-            
             // alert('sds');
+            // checkForInput();
             jQuery.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -145,7 +158,6 @@
                 var msg  = jQuery('#alertMSG');
                 var form = new FormData(this);
                 let files = jQuery('#profile_photo');
-                form.append('files', files);
                 var url = '/store';
                 jQuery.ajax({
                 type: 'POST',
@@ -165,6 +177,7 @@
                     // alert(data.msg);
                     msg.html(data.msg).css('color', 'green');
                     jQuery('#myForm').trigger('reset');
+                    checkForInput();
                     btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set Reminder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
                     setTimeout(() => {
                         jQuery(msg).html('&nbsp;');
@@ -184,5 +197,32 @@
                 });  
             });
         });
+
+
+        function checkForInput(val){
+            jQuery('#day_div, #from_date_div, #to_date_div, #time_div, #date_div').hide();
+            // alert(val);
+
+            // condition for Daily
+             if (val == '1') {
+                jQuery('#time_div').show();
+            }
+
+            // condition for Daily
+            if (val == '2') {
+                jQuery('#time_div, #date_div').show();
+            }
+
+            // condition for Weekly
+            if (val == '3') {
+                jQuery('#day_div, #from_date_div, #to_date_div, #time_div').show();
+            }
+        }
+
+        // time validation
+        function timeValidation(val){
+            // alert(val);
+            jQuery('#to_date').val(val).attr('min', val);
+        }
     </script>
     

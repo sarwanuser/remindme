@@ -10,7 +10,7 @@ Reminder Field
 Reminder Type
     daily     -> only time
     one time  -> date time both
-    weekly    -> day Name (time optional)  // from and to --------------> find how many day and his date 
+    weekly    -> day Name (time optional)  // from and to --------------> find how many day and his date
     monthly   -> fix one date like 7
     yearly    -> month & day (time optional)
 
@@ -21,4 +21,4 @@ Mode
 
 Laravel Cron Job Scheduling
 
-    
+//  +919634012007    

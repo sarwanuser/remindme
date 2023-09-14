@@ -17,8 +17,8 @@ Route::get('/', 'RemindController@index');
 Route::get('/create', 'RemindController@create');
 Route::post('/store', 'RemindController@store');
 
+// Run One Time 
+Route::get('/run-one-time', 'CheckSchedulerController@runOneTime');
 
-Route::get('/text-cron-tab', 'CronTabController@index');
-Route::get('/cron-tab', 'CronTabController@create');
-
-Route::get('/run-one-time', 'CheckSchedulerController@checkOneTime');
+// Run Weekly
+Route::get('/run-weekly', 'CheckSchedulerController@runWeekly');

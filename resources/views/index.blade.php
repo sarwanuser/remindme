@@ -14,6 +14,7 @@
         <!-- endinject -->
         <link rel="shortcut icon" href="{{url('assets/admin/images/favicon.png')}}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ URL::asset('assets/admin/css/simple-datatables@latest.css')}}">
         <title>Your All Reminders</title>
     </head>
 
@@ -90,7 +91,10 @@
     <!-- plugins:js -->
     <script src="{{url('assets/admin/vendors/js/vendor.bundle.base.js')}}"></script>
     
-	
+    <!-- start custum table -->
+      <script src="{{ URL::asset('assets/admin/js/datatables-simple-demo.js')}}"></script>
+      <script src="{{ URL::asset('assets/admin/js/simple-datatables@latest.js')}}"></script>
+    <!-- end custum table -->
     <script>    
         jQuery(document).ready(function(){
         // alert('sds');
