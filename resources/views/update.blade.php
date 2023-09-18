@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-12">
                                   <h6 style="text-align:center;">
-                                    <img src="{{url('assets/img/logo/logo.png')}}" alt="Logo" style="height:50px">  
+                                    <img src="{{url('public/assets/img/logo/logo.png')}}" alt="Logo" style="height:50px">  
                                   </h6>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-10">
@@ -224,13 +224,13 @@
             // condition for Daily
              if (val == '1') {
                 jQuery('#time_div').show();
-                jQuery('#time').attr('disabled', false);
+                // jQuery('#time').attr('disabled', false);
             }
 
             // condition for Daily
             if (val == '2') {
                 jQuery('#time_div, #date_div').show();
-                jQuery('#time, #date').attr('disabled', false);
+                // jQuery('#time, #date').attr('disabled', false);
             }
 
             // condition for Weekly

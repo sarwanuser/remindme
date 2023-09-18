@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-12">
                                   <h6 style="text-align:center;">
-                                    <img src="{{url('assets/img/logo/logo.png')}}" alt="Logo" style="height:50px">  
+                                    <img src="{{url('public/assets/img/logo/logo.png')}}" alt="Logo" style="height:50px">  
                                   </h6>
                                 </div>
 

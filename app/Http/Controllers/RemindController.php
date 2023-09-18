@@ -5,12 +5,19 @@ use Illuminate\Http\Request;
 use App\remind_type;
 use App\remind;
 use Carbon\Carbon;
+use DB;
 
 class RemindController extends Controller
 {
     //
     public function index(Request $request){
         $remind = remind::orderby('date', 'desc')->get()->unique('remind_code');
+
+        // $remind = DB::table('reminds')
+        //     ->select('reminds.title', 'reminds.description', 'reminds.day','reminds.date','reminds.time','reminds.user_id',
+        //                     'reminds.active_status', 'remind_types.remind_type')
+        //     ->join('remind_types','reminds.remind_type','=','remind_types.id')
+        //     ->orderby('date', 'desc')->get()->unique('remind_code');
         // dd($remind);
         return view('index', compact('remind'));
     }
