@@ -61,7 +61,7 @@
                                         <div class="row">
                                             <label class="col-sm-3 col-form-label">Reminder Type</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="remind_type" onchange="checkForInput(jQuery(this).val());">
+                                                <select class="form-control" name="remind_type" id="remind_type" onchange="checkForInput(jQuery(this).val());">
                                                     @foreach ($remind_type as $remind_types)
                                                         <option value="{{$remind_types->id}}">{{$remind_types->remind_type}}</option>
                                                     @endforeach
@@ -74,7 +74,7 @@
                                         <div class="row  form-group">
                                             <label class="col-sm-3 col-form-label">Day</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" name="day" id="">
+                                                <select class="form-control" name="day" id="day">
                                                     <option value="Sun" selected>Sunday</option>
                                                     <option value="Mon">Monday</option>
                                                     <option value="Tue">Tuesday</option>
@@ -106,11 +106,11 @@
                                     </div>
 
 
-                                    <div class="col-md-6" id="time_div">
+                                    <div class="col-md-6" id="time_div" style="display:none;">
                                         <div class="row  form-group">
                                             <label class="col-sm-3 col-form-label">Time</label>
                                             <div class="col-sm-9">
-                                                <input type="time" class="form-control" name="time" id="" value="{{date('00:00')}}" required>
+                                                <input type="time" class="form-control" name="time" id="time" value="{{date('00:00')}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                         <div class="row  form-group">
                                             <label class="col-sm-3 col-form-label">Date</label>
                                             <div class="col-sm-9">
-                                                <input type="date" class="form-control" name="date" id="" value="{{date('Y-m-d')}}" required>
+                                                <input type="date" class="form-control" name="date" id="date" value="{{date('Y-m-d')}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
     <script>    
         jQuery(document).ready(function(){
             // alert('sds');
-            // checkForInput();
+            checkForInput();
             jQuery.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -201,21 +201,26 @@
 
         function checkForInput(val){
             jQuery('#day_div, #from_date_div, #to_date_div, #time_div, #date_div').hide();
+            jQuery('#day, #from_date, #to_date, #time, #date').attr('disabled', true);
+            var val = jQuery('#remind_type').val();
             // alert(val);
 
             // condition for Daily
              if (val == '1') {
                 jQuery('#time_div').show();
+                jQuery('#time').attr('disabled', false);
             }
 
             // condition for Daily
             if (val == '2') {
                 jQuery('#time_div, #date_div').show();
+                jQuery('#time, #date').attr('disabled', false);
             }
 
             // condition for Weekly
             if (val == '3') {
                 jQuery('#day_div, #from_date_div, #to_date_div, #time_div').show();
+                jQuery('#day, #from_date, #to_date, #time').attr('disabled', false);
             }
         }
 

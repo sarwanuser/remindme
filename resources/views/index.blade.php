@@ -46,6 +46,7 @@
                     <table class="table table-hover" id="datatablesSimple">
                       <thead>
                         <tr>
+                          <th>Sr No.</th>
                           <th>Title</th>
                           <th>Description</th> 
                           <th>Reminder Type</th>
@@ -58,26 +59,30 @@
                       </thead>
 
                       <tbody>
-                        @foreach($remind as $datas)
-                          <tr>
-                            <td>{{$datas->title}}</td>
-                            <td>{{$datas->description}}</td> 
-                            <td>{{$datas->remind_type}}</td>
-                            <td>{{$datas->day}}</td>
-                            <td>{{date('d-m-Y', strtotime($datas->date))}}</td>
-                            <td>{{date('H:i A', strtotime($datas->time))}}</td>
-                            <td>
-                              @if($datas->active_status=='Y')
-                                <span style="color:#0d6efd;">Active</span>
-                              @else
-                                <span style="color:red;">Inactive</span></b>
-                              @endif
-                            </td>
-                            <td>
-                              <a href="{{url('/admin/feedback/edit-'.$datas->id)}}"><i class="mdi mdi-table-edit"></i></a>
-                              <a href="{{url('/admin/feedback/delete-'.$datas->id)}}"><i class="mdi mdi-delete-forever"></i></a>
-                            </td>
-                          </tr>
+                      @php $key=1; @endphp
+                      {{--@foreach($remind as $datas)--}}
+                          @foreach($remind as $datas)
+                            <tr>
+                              <td>{{$key++}}</td>
+                              <td>{{$datas->title}}</td>
+                              <td>{{$datas->description}}</td> 
+                              <td>{{$datas->remind_type}}</td>
+                              <td>{{$datas->day}}</td>
+                              <td>@if($datas->date){{date('d-m-Y', strtotime($datas->date))}}@endif</td>
+                              <td>@if($datas->time){{date('H:i A', strtotime($datas->time))}}@endif</td>
+                              <td>
+                                @if($datas->active_status=='Y')
+                                  <span style="color:#0d6efd;">Active</span>
+                                @else
+                                  <span style="color:red;">Inactive</span></b>
+                                @endif
+                              </td>
+                              <td>
+                                <a href="{{url('/admin/feedback/edit-'.$datas->id)}}"><i class="mdi mdi-table-edit"></i></a>
+                                <a href="{{url('/admin/feedback/delete-'.$datas->id)}}"><i class="mdi mdi-delete-forever"></i></a>
+                              </td>
+                            </tr>
+                          {{--@endforeach--}}
                         @endforeach
                       </tbody>
                     </table>

@@ -21,7 +21,9 @@ class CreateRemindsTable extends Migration
             $table->string('day')->nullable();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
+            $table->string('remind_code');
             $table->string('user_id')->nullable();
+            $table->string('run_status', 1);
             $table->string('active_status', 1);
             $table->timestamps();
         });

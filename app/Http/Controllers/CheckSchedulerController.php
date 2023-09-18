@@ -24,8 +24,7 @@ class CheckSchedulerController extends Controller
         foreach ($data as $key => $value) {
 
             // Start need update for testing
-                // $value1->update(['time' => date("H:i:s")]);
-                $value->update(['day' => 'Run']);
+                $value->update(['run_status' => 'Run']);
                 // dd($value1);
             // End need update for testing
             if (date('H:i', strtotime($value->time)) == date("H:i")) {
@@ -70,10 +69,9 @@ class CheckSchedulerController extends Controller
         foreach ($data as $key => $value) {
 
             // Start need update for testing
-                // $value1->update(['time' => date("H:i:s")]);
-                $value->update(['day' => 'Run']);
-                // dd($value);
+                $value->update(['run_status' => 'Run']);
             // End need update for testing
+            
             if (date('H:i', strtotime($value->time)) == date("H:i")) {
                 //  start mail
                     $mail             = new PHPMailer();                // create a n
