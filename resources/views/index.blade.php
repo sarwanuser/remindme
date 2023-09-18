@@ -23,8 +23,14 @@
             <div class="row" style="padding-top: 20px;">
                 <div class="col-12 grid-margin">
                     <div class="card">
-                        <div class="card-body" style="padding-bottom: 10px;">
+                        <div class="card-body" style="padding-bottom: 10px;padding: 0.5rem 1.5rem 1.5rem 0.5rem;">
                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12">
+                                  <h6 style="text-align:center;">
+                                    <img src="{{url('assets/img/logo/logo.png')}}" alt="Logo" style="height:50px">  
+                                  </h6>
+                                </div>
+
                                 <div class="col-lg-10 col-md-10 col-10">
                                     <h6 class="card-title" style="font-size:20px">Your All Reminders</h6>
                                 </div>
@@ -34,7 +40,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 col-12">
+                                <div class="col-lg-12 col-md-12 col-12" style="text-align:center;">
                                     @if(Session::has('Failed'))<span id="Massage" style="color: red;" min-height="10px" max-height="10px"> &nbsp; {{Session::get('Failed')}}</span>@endif
                                     @if(Session::has('Success'))<span id="Massage" style="color: green;" min-height="10px" max-height="10px"> &nbsp; {{Session::get('Success')}}</span>@endif
                                 </div>
@@ -60,7 +66,6 @@
 
                       <tbody>
                       @php $key=1; @endphp
-                      {{--@foreach($remind as $datas)--}}
                           @foreach($remind as $datas)
                             <tr>
                               <td>{{$key++}}</td>
@@ -78,11 +83,10 @@
                                 @endif
                               </td>
                               <td>
-                                <a href="{{url('/admin/feedback/edit-'.$datas->id)}}"><i class="mdi mdi-table-edit"></i></a>
-                                <a href="{{url('/admin/feedback/delete-'.$datas->id)}}"><i class="mdi mdi-delete-forever"></i></a>
+                                <a href="{{url('/edit-'.$datas->id)}}"><i class="mdi mdi-table-edit"></i></a>
+                                <a href="{{url('/delete-'.$datas->remind_code)}}"><i class="mdi mdi-delete-forever"></i></a>
                               </td>
                             </tr>
-                          {{--@endforeach--}}
                         @endforeach
                       </tbody>
                     </table>
@@ -101,57 +105,64 @@
       <script src="{{ URL::asset('assets/admin/js/simple-datatables@latest.js')}}"></script>
     <!-- end custum table -->
     <script>    
-        jQuery(document).ready(function(){
+      jQuery(document).ready(function(){
         // alert('sds');
         jQuery.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
+          headers: {
+              'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          }
         });
         jQuery('#myForm').on('submit', function(e){
-            e.preventDefault();
-            var btn  = jQuery('#submit_btn');
-            var msg  = jQuery('#alertMSG');
-            var form = new FormData(this);
-            let files = jQuery('#profile_photo');
-            form.append('files', files);
-            var url = '/admin/feedback/store';
-            jQuery.ajax({
-            type: 'POST',
-            url: url,
-            data: form,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            beforeSend:function(){
-                msg.html('&nbsp;');
-                btn.html("<i class='fa fa-circle-o-notch fa-spin'></i> Submiting");
-            },
-            success: function(data) {
-                if (data.status=='1') {
-                // Ajax call completed successfully
-                // alert(data.msg);
-                msg.html(data.msg).css('color', 'green');
-                jQuery('#myForm').trigger('reset');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-                setTimeout(() => {
-                    jQuery(msg).html('&nbsp;');
-                },3500);
-                } else {
-                // alert(data.msg);
-                msg.html(data.msg).css('color', 'red');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-                }
-            },
-            error: function(data) {
-                // Some error in ajax call
-                // alert("some Error");
-                msg.html("some Error").css('color', 'red');
-                btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+          e.preventDefault();
+          var btn  = jQuery('#submit_btn');
+          var msg  = jQuery('#alertMSG');
+          var form = new FormData(this);
+          let files = jQuery('#profile_photo');
+          form.append('files', files);
+          var url = '/admin/feedback/store';
+          jQuery.ajax({
+          type: 'POST',
+          url: url,
+          data: form,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          beforeSend:function(){
+            msg.html('&nbsp;');
+            btn.html("<i class='fa fa-circle-o-notch fa-spin'></i> Submiting");
+          },
+          success: function(data) {
+            if (data.status=='1') {
+            // Ajax call completed successfully
+            // alert(data.msg);
+            msg.html(data.msg).css('color', 'green');
+            jQuery('#myForm').trigger('reset');
+            btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            setTimeout(() => {
+                jQuery(msg).html('&nbsp;');
+            },3500);
+            } else {
+            // alert(data.msg);
+            msg.html(data.msg).css('color', 'red');
+            btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
             }
-            });  
+          },
+          error: function(data) {
+            // Some error in ajax call
+            // alert("some Error");
+            msg.html("some Error").css('color', 'red');
+            btn.html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+          }
+          });  
         });
-        });
+      });
+
+      // for hide the massage
+      jQuery(document).ready(function() {
+        setTimeout(() => {
+          jQuery('#Massage').html('&nbsp;');
+        },5000);
+      });
     </script>
     

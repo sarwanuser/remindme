@@ -10,9 +10,7 @@ class RemindController extends Controller
 {
     //
     public function index(Request $request){
-        $remind = remind::orderby('date', 'desc')->get();
-        // $remind = $remind->distinct('remind_code');
-        // $remind = $remind->groupby('remind_code');
+        $remind = remind::orderby('date', 'desc')->get()->unique('remind_code');
         // dd($remind);
         return view('index', compact('remind'));
     }
@@ -97,6 +95,57 @@ class RemindController extends Controller
         } catch (\Exception $e) {
             $msg = $e->getMessage();
             return response()->json(['status'=>'0', 'msg' =>"$msg", 'data'=>@$data]);
+        }
+    }
+
+
+    // this function is used for the delete reminder
+    public function delete($id){
+        $reminder = remind::where('remind_code', $id)->first();
+        // dd($reminder);
+        if ($reminder) {
+            remind::where('remind_code', $id)->delete();
+            return back()->with(['Success' =>"Reminder Deleted Successfully !"]);
+        } 
+        else {
+            return back()->with('Failed', "Error while deleting Reminder ID- $id");
+        }
+    }
+
+
+
+    // Fetch all details of Specific Menu Url by his unique ID for Edit Register Details
+    public function edit($id){
+        $data = remind::find($id);
+        if ($data) {
+            $remind_type = remind_type::where('active_status', 'Y')->orderby('display_order', 'ASC')->get();
+            return view('update', compact('data','remind_type'));
+        } else {
+            return redirect('/admin/boxarea')->with('Failed', "No Record found for ID- $id");
+        }
+    }
+
+    // this function is used for update by Employee By his unique ID 
+    public function update(Request $request, $id)
+    {
+        try{
+            // $POST = $request->all();
+            // dd($POST);
+            $data = remind::find($id);
+            
+            if ($data) {
+                $data->title          = $request->title;
+                $data->description    = $request->description;
+                $data->active_status  = @$request->active_status;
+                $data->update();
+                return response()->json(['status'=>'1', 'msg' =>"Reminder Update Successfully !", 'data'=>$data]);
+            }
+            else {
+                return response()->json(['status'=>'0', 'msg' =>"Error while updating Reminder ID - $id"]);
+            }
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            return response()->json(['status'=>'0', 'msg' =>"$msg", 'data'=>$data]);
         }
     }
 }

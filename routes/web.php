@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'RemindController@index');
 Route::get('/create', 'RemindController@create');
 Route::post('/store', 'RemindController@store');
+Route::get('/edit-{id}', 'RemindController@edit');
+Route::post('/update-{id}', 'RemindController@update');
+Route::get('/delete-{id}', 'RemindController@delete');
 
 // Run One Time 
 Route::get('/run-one-time', 'CheckSchedulerController@runOneTime');
