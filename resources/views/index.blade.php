@@ -71,7 +71,7 @@
                               <td>{{$key++}}</td>
                               <td>{{$datas->title}}</td>
                               <td>{{$datas->description}}</td> 
-                              <td>{{$datas->remind_type}}</td>
+                              <td>{{$datas->remind_name}}</td>
                               <td>{{$datas->day}}</td>
                               <td>@if($datas->date){{date('d-m-Y', strtotime($datas->date))}}@endif</td>
                               <td>@if($datas->time){{date('H:i A', strtotime($datas->time))}}@endif</td>

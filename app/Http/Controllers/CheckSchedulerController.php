@@ -15,7 +15,7 @@ class CheckSchedulerController extends Controller
     // function for run one time
     public function runOneTime(Request $request){
         // Fetch all todays  Records From The Remind Model
-        $data = remind::where('remind_type', '1')
+        $data = remind::where('remind_type', '2')
                     ->where('date', date('Y-m-d'))
                     ->orderby('created_at', 'ASC')
                     ->get();

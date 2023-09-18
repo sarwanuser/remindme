@@ -15,7 +15,7 @@ class CreateRemindTypesTable extends Migration
     {
         Schema::create('remind_types', function (Blueprint $table) {
             $table->id();
-            $table->string('remind_type');
+            $table->string('remind_name');
             $table->integer('display_order');
             $table->string('active_status', 1);
             $table->timestamps();

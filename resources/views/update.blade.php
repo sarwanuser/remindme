@@ -68,7 +68,7 @@
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="remind_type" id="remind_type" onchange="checkForInput(jQuery(this).val());" disabled>
                                                     @foreach ($remind_type as $remind_types)
-                                                        <option value="{{$remind_types->id}}" @if($remind_types->id == $data->remind_type){{'selected'}}@endif>{{$remind_types->remind_type}}</option>
+                                                        <option value="{{$remind_types->id}}" @if($remind_types->id == $data->remind_type){{'selected'}}@endif>{{$remind_types->remind_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
